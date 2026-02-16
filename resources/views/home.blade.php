@@ -70,6 +70,12 @@
 
 
      @role('admin')
+             <div class="mb-4 px-3">
+                    <button data-bs-toggle="modal" data-bs-target="#addBoard" class="btn btn-primary">
+                ➕ Add Board
+            </button>
+    </div>
+            @include('partials.add_board_modal') 
     <div class="card mb-4 shadow-sm px-3">
         <div class="card-header bg-secondary text-white fw-bold">Top Points Users</div>
         <div class="card-body p-0">
@@ -138,52 +144,7 @@
     <!-- TRELLO-STYLE BOARD -->
 
 </div>
-<div class="modal fade" id="open-modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
 
-            <div class="modal-header bg-primary text-white">
-                <h5>User Time</h5>
-                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                            <form action="{{ url('/user_duration') }}" method="POST" >
-                @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Select User</label>
-                        <select name="user" id="user" class="form-select" required>
-                            <option disabled selected>Select User</option>
-                            @if(!empty($users))
-                            @foreach($total_users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
-
-                    
-
-                    
-
-                    <div class="mb-3">
-                        <label class="form-label">From Date</label>
-                        <input type="date" name="from_date"
-                            class="form-control"max="{{ now()->format('Y-m-d') }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">To Date</label>
-                        <input type="date" name="to_date"
-                            class="form-control"max="{{ now()->format('Y-m-d') }}" required>
-                    </div>
-
-                </div>
-
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary">Submit</button>
-                </div>
-                </div>
-                </div>
 
             </form>
 

@@ -14,7 +14,6 @@ Route::get('/', function () {
 Auth::routes();
 
 
-
 // Google Login Routes
 Route::get('/auth/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
@@ -25,6 +24,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/home',  [HomeController::class, 'index']);
     Route::post('/createTicket',  [HomeController::class, 'createTicket']);
+    Route::post('/createboard',  [BoardController::class, 'createBoard']);
     
 Route::post("/user_duration",[TimeLogController::class,'userDuration']);
 Route::get('/timelog/export', [TimeLogController::class, 'exportPdf'])->name('timelog.export');

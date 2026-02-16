@@ -83,4 +83,18 @@ class BoardController extends Controller
         ));
     }
 
+        public function createBoard(Request $request)
+    {
+        $request->validate([
+            'name'=>"required|string|min:3|max:255",
+            'description'=>"required|string"
+        ]);
+        $board=Board::create([
+            'name'=>$request->name,
+            'description'=>$request->description,
+            'created_by'=>Auth()->id(),
+        ]);
+        return redirect('/home');
+    }
+
 }

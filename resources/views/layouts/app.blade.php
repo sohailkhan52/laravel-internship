@@ -65,7 +65,7 @@
                         <li class="nav-item">
                             <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#open-modal">Time Log</button>
                         </li>
-                        
+                         @include('partials.timelog_modal')
                         @endrole
 
                     @endauth

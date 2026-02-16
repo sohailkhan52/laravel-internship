@@ -13,10 +13,14 @@ class TimeLogController extends Controller
 {
     public function ExportPdf(Request $request)
     {
-        $user_id = $request->user;
-        $from_date = Carbon::parse($request->from_date)->startOfDay();
-        $to_date = Carbon::parse($request->to_date)->endOfDay();
-        $user =User::find($user_id);
+        $user_id=$request->user;
+        $from_date =$request->from_date;
+        $from_time =$request->from_time;
+        $from_date = Carbon::parse($from_date . ' ' . $from_time);
+        $to_date =$request->to_date;
+        $to_time =$request->to_time;
+        $to_date = Carbon::parse($to_date . ' ' . $to_time);
+        $user=User::find($user_id);
 
         $user_time = TimeLog::where('user_id',$user_id)
         ->whereBetween('start_time',[$from_date,$to_date])->whereNotNull('end_time')
@@ -39,10 +43,17 @@ class TimeLogController extends Controller
 
     public function userDuration(Request $request){
 
+    $request->validate([
+        'user'=>"required"
+    ]);
+
         $user_id=$request->user;
-        $from_date = Carbon::parse($request->from_date)->startOfDay();
-        $to_date = Carbon::parse($request->to_date)->endOfDay();
-        
+        $from_date =$request->from_date;
+        $from_time =$request->from_time;
+        $from_date = Carbon::parse($from_date . ' ' . $from_time);
+        $to_date =$request->to_date;
+        $to_time =$request->to_time;
+        $to_date = Carbon::parse($to_date . ' ' . $to_time);
         $user=User::find($user_id);
 
         
