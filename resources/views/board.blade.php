@@ -68,6 +68,8 @@
       </div>
     </div>
 @role('admin')
+
+    <div id="alert-container"></div>
         <div class="mb-4 px-3">
                     <button data-bs-toggle="modal" data-bs-target="#addTicket" class="btn btn-primary">
                 ➕ Add Ticket

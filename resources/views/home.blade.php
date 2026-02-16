@@ -5,10 +5,9 @@
 
 
 <div class="container-fluid py-4">
-@role("admin")
-<h3>Admin Dashboard</h3>
 
-@endrole
+    <div id="alert-container"></div>
+
     <!-- Success Message -->
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">

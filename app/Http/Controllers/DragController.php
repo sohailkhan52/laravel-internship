@@ -158,7 +158,7 @@ public function closeTicket(Ticket $ticket)
             if($checklist->completed_at === null){
                 return response()->json([
                     'success' => false,
-                    'message' => withErrors('All checklist items must be completed')
+                    'message' => 'All checklist items must be completed'
                 ], 400);
             }
         }

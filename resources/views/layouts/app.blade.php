@@ -127,6 +127,7 @@
 
     <!-- MAIN CONTENT -->
     <main class="container py-4">
+            <!-- Alert Container -->
         @yield('content')
     </main>
 
@@ -148,16 +149,29 @@ function showAlert(type, message) {
     // Clear existing alerts
     container.innerHTML = '';
 
-    // Create alert div
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
     alertDiv.setAttribute('role', 'alert');
+
     alertDiv.innerHTML = `
         ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
 
     container.appendChild(alertDiv);
+
+    // 🔥 Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 🔥 Auto hide after 2 seconds
+    setTimeout(() => {
+        alertDiv.classList.remove('show');
+        alertDiv.classList.add('fade');
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 300); // wait for fade animation
+    }, 4000);
 }
 
 //---------------------------
@@ -247,52 +261,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 evt.item.style.opacity = '0.6';
 
                 // Make API call
+
                 fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    
-                    if (!response.ok) {
-                        // Try to get error message
-                        return response.text().then(text => {
-                            throw new Error(`HTTP ${response.status}: ${text.substring(0, 100)}`);
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Response data:', data);
-                    evt.item.style.opacity = '1'; // Remove loading
-                    
-                    if (data.success) {
-                        console.log('✓ Ticket status updated successfully');
-                        
-                        // Show success message
-                        showToast(`Ticket moved to ${newStatus.replace('_', ' ')}`, 'success');
-                        
-                        // Refresh page after 1 second to show updated status
-                           
-                        console.log('Status updated without refresh');
-                        
-                    } else {
-                        alert('Failed to update ticket status: ' + (data.message || 'Unknown error'));
-                        // Revert the drag on failure
-                        evt.from.appendChild(evt.item);
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch Error:', error);
-                    evt.item.style.opacity = '1'; // Remove loading
-                    alert('Error updating ticket status: ' + error.message);
-                    // Revert the drag on error
-                    evt.from.appendChild(evt.item);
-                });
+    method: 'POST',
+    headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+})
+.then(response => response.json())
+.then(data => {
+    evt.item.style.opacity = '1';
+
+    if (data.success) {
+        showAlert('success', data.message || 
+            `Ticket moved to ${newStatus.replace('_', ' ')}`);
+    } else {
+        showAlert('error', data.message || 
+            'Something went wrong');
+        evt.from.appendChild(evt.item);
+    }
+})
+.catch(error => {
+    evt.item.style.opacity = '1';
+    showAlert('error', 'Server error occurred');
+    evt.from.appendChild(evt.item);
+});
+
             }
         });
     });
