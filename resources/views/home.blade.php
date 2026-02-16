@@ -74,7 +74,29 @@
                 ➕ Add Board
             </button>
     </div>
-            @include('partials.add_board_modal') 
+
+
+
+            @include('partials.add_board_modal')
+       @endrole     
+
+          <li class="nav-item mb-2">
+            <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle" type="button" id="boardDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+         Select Board
+           </button>
+          <ul class="dropdown-menu" aria-labelledby="boardDropdown">
+           @foreach($boards as $board)
+               <li>
+                 <a class="dropdown-item" href="/board/{{$board->id}}">
+                  {{ $board->name }}
+              </a>
+               </li>
+          @endforeach
+           </ul>
+       </div>
+            </li>
+     @role('admin') 
     <div class="card mb-4 shadow-sm px-3">
         <div class="card-header bg-secondary text-white fw-bold">Top Points Users</div>
         <div class="card-body p-0">
