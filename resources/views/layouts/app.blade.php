@@ -102,6 +102,9 @@
                                 <a class="dropdown-item" href="{{ url('home') }}">
                                     <i class="bi bi-speedometer2 me-1"></i> Dashboard
                                 </a>
+                                <a class="dropdown-item" href="{{ url('profile') }}">
+                                    <i class="bi bi-person me-1"></i> Profile
+                                </a>
 
                                 <a class="dropdown-item text-danger"
                                    href="{{ route('logout') }}"
@@ -134,8 +137,6 @@
 
 </div>
 <script>
-
-
 //---------------------------
 // alert script  
 function showAlert(type, message) {
@@ -159,7 +160,7 @@ function showAlert(type, message) {
     // 🔥 Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // 🔥 Auto hide after 2 seconds
+    // 🔥 Auto hide after 4 seconds
     setTimeout(() => {
         alertDiv.classList.remove('show');
         alertDiv.classList.add('fade');

@@ -143,7 +143,7 @@
             <div class="card-Body">
                 <div>
                     <p>
-                          {{$board->description}} </p>
+                          {{$board->description}}</p>
                 </div>
             </div></a>
         </div>

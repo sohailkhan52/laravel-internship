@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\DragController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\TimeLogController;
 
@@ -13,6 +14,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/change_password', [ProfileController::class, 'change_password']);
 
 // Google Login Routes
 Route::get('/auth/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');
