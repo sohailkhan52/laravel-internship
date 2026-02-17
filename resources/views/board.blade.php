@@ -70,12 +70,7 @@
 @role('admin')
 
     <div id="alert-container"></div>
-        <div class="mb-4 px-3">
-                    <button data-bs-toggle="modal" data-bs-target="#addTicket" class="btn btn-primary">
-                ➕ Add Ticket
-            </button>
-    </div>
-            @include('partials.add-ticket-modal')           
+        
 </div>
 
 
@@ -122,7 +117,6 @@
 
             </div>
         </div>
-
 
         <!-- IN PROGRESS -->
         <div class="col-md-4 ticket-column" data-status="in_progress">

@@ -43,9 +43,13 @@ class TimeLogController extends Controller
 
     public function userDuration(Request $request){
 
-    $request->validate([
+        $request->validate([
+        'from_date' => 'required|date',
+        'to_date' => 'required|date',
+        'from_time' => 'required',
+        'to_time' => 'required',
         'user'=>"required"
-    ]);
+         ]);
 
         $user_id=$request->user;
         $from_date =$request->from_date;

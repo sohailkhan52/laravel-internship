@@ -66,23 +66,31 @@
       </div>
     </div>
         
-
-
+<div class="row">
      @role('admin')
-             <div class="mb-4 px-3">
+             <div class="mb-4 col-md-2 px-1">
                     <button data-bs-toggle="modal" data-bs-target="#addBoard" class="btn btn-primary">
                 ➕ Add Board
             </button>
     </div>
-
-
-
             @include('partials.add_board_modal')
+
+        <div class="mb-4 col-md-2 px-1">
+                    <button data-bs-toggle="modal" data-bs-target="#addTicket" class="btn btn-primary">
+                ➕ Add Ticket
+            </button>
+    </div>
+            @include('partials.add-ticket-modal')   
+            <div class="mb-4 col-md-2 px-1">
+                   <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#open-modal">Time Log</button>
+            </div>
+             @include('partials.timelog_modal')
+                        
+
        @endrole     
 
-          <li class="nav-item mb-2">
-            <div class="dropdown">
-         <button class="btn btn-secondary dropdown-toggle" type="button" id="boardDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="dropdown mb-4 col-md-2 px-1">
+         <button class="btn btn-primary dropdown-toggle" type="button" id="boardDropdown" data-bs-toggle="dropdown" aria-expanded="false">
          Select Board
            </button>
           <ul class="dropdown-menu" aria-labelledby="boardDropdown">
@@ -95,7 +103,7 @@
           @endforeach
            </ul>
        </div>
-            </li>
+       </div>
      @role('admin') 
     <div class="card mb-4 shadow-sm px-3">
         <div class="card-header bg-secondary text-white fw-bold">Top Points Users</div>
@@ -120,22 +128,7 @@
     </div>
     
 @endrole
-                        <li class="nav-item mb-2">
-                        <div class="dropdown">
-                       <button class="btn btn-secondary dropdown-toggle" type="button" id="boardDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Select Board
-                       </button>
-                       <ul class="dropdown-menu" aria-labelledby="boardDropdown">
-                         @foreach($boards as $board)
-                           <li>
-                             <a class="dropdown-item" href="/board/{{$board->id}}">
-                               {{ $board->name }}
-                             </a>
-                           </li>
-                         @endforeach
-                       </ul>
-                     </div>
-                        </li>
+
 @role('member')
     
 @endrole
@@ -150,11 +143,8 @@
             <div class="card-Body">
                 <div>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem sint quis voluptates voluptatem facere impedit aspernatur enim nulla dolore illum nobis optio, consectetur accusamus incidunt laborum totam officia, repudiandae accusantium.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem sint quis voluptates voluptatem facere impedit aspernatur enim nulla dolore illum nobis optio, consectetur accusamus incidunt laborum totam officia, repudiandae accusantium.
-                    </p>
+                          {{$board->description}} </p>
                 </div>
-                <h2>{{$board->name}}</h2>
             </div></a>
         </div>
 </div>

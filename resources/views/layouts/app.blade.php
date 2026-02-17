@@ -61,14 +61,10 @@
                                 <i class="bi bi-house-door"></i> Member Dashboard
                             </a>
                         </li>
-                        @role("admin")
-                        <li class="nav-item">
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#open-modal">Time Log</button>
-                        </li>
-                         @include('partials.timelog_modal')
-                        @endrole
+ 
 
                     @endauth
+                    
                 </ul>
 
                 <!-- RIGHT -->
@@ -360,7 +356,10 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Notification modal functionality
-    document.getElementById('notificationsModal').addEventListener('shown.bs.modal', function () {
+const notificationModal = document.getElementById('notificationsModal');
+
+if (notificationModal) {
+    notificationModal.addEventListener('shown.bs.modal', function () {
         fetch('{{ route("notifications.mark-read") }}', { 
             method: 'POST', 
             headers: {
@@ -372,6 +371,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (badge) badge.remove();
         });
     });
+}
+
 
     console.log('Ticket drag and drop initialized');
 });

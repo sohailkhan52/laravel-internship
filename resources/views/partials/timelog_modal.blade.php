@@ -12,7 +12,7 @@
                 @csrf
                     <div class="mb-3">
                         <label class="form-label">Select User</label>
-                        <select name="user" id="user" class="form-select" required>
+                        <select name="user" id="user" class="form-select" >
                             <option disabled selected>Select User</option>
                             @if(!empty($users))
                             @foreach($total_users as $user)
@@ -27,23 +27,23 @@
                                                 <div class="mb-3">
                         <label class="form-label">From Date</label>
                         <input type="date" name="from_date"
-                            class="form-control"max="{{ now()->format('Y-m-d') }}" required>
+                            class="form-control"max="{{ now()->format('Y-m-d') }}">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">To Date</label>
                         <input type="date" name="to_date"
-                            class="form-control"max="{{ now()->format('Y-m-d') }}" required>
+                            class="form-control"max="{{ now()->format('Y-m-d') }}">
                     </div>
                         </div>
                         <div class="col-md-6">                    <div class="mb-3">
                         <label class="form-label">From time</label>
                         <input type="time" name="from_time"
-                            class="form-control"max="{{ now()->format('H:i') }}" required>
+                            class="form-control"max="{{ now()->format('H:i') }}">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">To time</label>
                         <input type="time" name="to_time"
-                            class="form-control"max="{{ now()->format('H:i') }}" required>
+                            class="form-control"max="{{ now()->format('H:i') }}">
                     </div></div>
                     </div>
 

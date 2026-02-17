@@ -35,10 +35,10 @@
             <ul class="dropdown-menu w-100 p-2" style="max-height: 200px; overflow-y: auto;">
                 @forelse($ticket->checklist as $checklist)
                     <li class="mb-1">
+                        <a href="checklist/{{ $checklist->id }}" class="btn btn ms-1">
                         <input type="checkbox" id="checklist-{{ $checklist->id }}" 
                                @if($checklist->completed_at) checked @endif 
                                disabled>
-                        <a href="checklist/{{ $checklist->id }}" class="btn btn ms-1">
                             {{ $checklist->name }}
                         </a>
                     </li>
