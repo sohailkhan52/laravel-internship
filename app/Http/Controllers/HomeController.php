@@ -73,9 +73,11 @@ class HomeController extends Controller
         $admin = $user->hasRole('admin'); // true if admin, false if member
         if ($admin) {
     $tickets = Ticket::latest()->get(); // all tickets for admin
+    $boards = Board::with('ticket')->get();
          } else {
     $tickets = Ticket::where('assigned_to', $userId)
                      ->latest()->get(); // only user's tickets
+                     $boards = Board::with(['ticket' => function($query) use ($userId) {$query->where('assigned_to', $userId);    }])->get();
        }
        
 

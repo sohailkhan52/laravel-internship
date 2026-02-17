@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -32,6 +33,14 @@
         main {
             min-height: 90vh;
         }
+               .card a {
+         text-decoration: none; /* removes underline */
+         color: inherit;        /* uses the parent text color */
+       }
+
+       .card a:hover {
+         color: inherit;        /* prevents color change on hover */
+       }
     </style>
 </head>
 

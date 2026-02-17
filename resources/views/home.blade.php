@@ -136,14 +136,23 @@
 @foreach($boards as $board)
 
 
-<div class="col-md-5">
+<div class="col-md-6 mt-3">
 
         <div class="card">
             <a href="board/{{$board->id}}"><div class="card-header"><h5>{{$board->name}}</h5></div>
-            <div class="card-Body">
+            <div class="card-Body my-5">
                 <div>
-                    <p>
-                          {{$board->description}}</p>
+                    <ul>
+                        <li>
+    <h5>Total number of tickets in board {{$board->name}}: {{$board->ticket->count()}}</h5>
+</li>
+
+                        <hr>
+                        @foreach($board->ticket->take(4) as $ticket)
+                        <li><p> tickets in board {{$board->name}} with title: {{$ticket->title;}}</p></li>
+                        @endforeach
+                    </ul>
+                    
                 </div>
             </div></a>
         </div>
@@ -152,16 +161,12 @@
 @endforeach
 
 </div>
-    <!-- TRELLO-STYLE BOARD -->
 
 </div>
 
 
             </form>
 
-                <!-- <input type="hidden" id="modal-user-id" value="">
-                <p><strong>User:</strong> <span id="modal-user-name">--</span></p>
-                <p><strong>Total Time:</strong> <span id="modal-user-time">--</span></p> -->
             </div>
 
 
