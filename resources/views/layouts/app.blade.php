@@ -183,29 +183,6 @@ function showAlert(type, message) {
 //---------------------------
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Checklist functionality
-    const container = document.getElementById('checklist-container');
-    const addBtn = document.getElementById('add-checklist');
-
-    if (addBtn && container) {
-        addBtn.addEventListener('click', function() {
-            const div = document.createElement('div');
-            div.classList.add('input-group', 'mb-2', 'checklist-item');
-
-            div.innerHTML = `
-                <input type="text" name="checklist[]" class="form-control" placeholder="Checklist item" required>
-                <button type="button" class="btn btn-danger remove-checklist">X</button>
-            `;
-
-            container.appendChild(div);
-        });
-
-        container.addEventListener('click', function(e) {
-            if (e.target.classList.contains('remove-checklist')) {
-                e.target.closest('.checklist-item').remove();
-            }
-        });
-    }
 
     // Drag and Drop functionality
     document.querySelectorAll('.ticket-cards-container').forEach(container => {
@@ -268,32 +245,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Make API call
 
-                fetch(endpoint, {
+    fetch(endpoint, {
     method: 'POST',
     headers: {
         'X-CSRF-TOKEN': '{{ csrf_token() }}',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
     }
-})
-.then(response => response.json())
-.then(data => {
-    evt.item.style.opacity = '1';
+    })
+    .then(response => response.json())
+    .then(data => {
+        evt.item.style.opacity = '1';
 
-    if (data.success) {
-        showAlert('success', data.message || 
-            `Ticket moved to ${newStatus.replace('_', ' ')}`);
-    } else {
-        showAlert('error', data.message || 
-            'Something went wrong');
+        if (data.success) {
+            showAlert('success', data.message || 
+                `Ticket moved to ${newStatus.replace('_', ' ')}`);
+        } else {
+            showAlert('error', data.message || 
+                'Something went wrong');
+            evt.from.appendChild(evt.item);
+        }
+    })
+    .catch(error => {
+        evt.item.style.opacity = '1';
+        showAlert('error', 'Server error occurred');
         evt.from.appendChild(evt.item);
-    }
-})
-.catch(error => {
-    evt.item.style.opacity = '1';
-    showAlert('error', 'Server error occurred');
-    evt.from.appendChild(evt.item);
-});
+    });
 
             }
         });
@@ -334,37 +311,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Test function for debugging
-    window.testDrag = function() {
-        console.log('=== Testing Drag ===');
-        const ticket = document.querySelector('.ticket-card');
-        if (!ticket) {
-            alert('No tickets found');
-            return;
-        }
-        
-        const ticketId = ticket.dataset.ticketId;
-        console.log('Testing with ticket ID:', ticketId);
-        
-        // Test the start endpoint with new URL
-        fetch(`/ticket/${ticketId}/start`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log('Test result:', data);
-            alert('Test successful! Check console.');
-        })
-        .catch(err => {
-            console.error('Test error:', err);
-            alert('Test failed: ' + err.message);
-        });
-    };
-
     // Notification modal functionality
 const notificationModal = document.getElementById('notificationsModal');
 
@@ -382,8 +328,6 @@ if (notificationModal) {
         });
     });
 }
-
-
     console.log('Ticket drag and drop initialized');
 });
 </script>
