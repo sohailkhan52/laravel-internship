@@ -1,56 +1,73 @@
-<div class="modal fade" id="open-modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+<!-- TIME LOG MODAL -->
+<div id="open-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeModal('open-modal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-md animate-slide-up">
 
-            <div class="modal-header bg-primary text-white">
-                <h5>User Time</h5>
-                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                    <i class="bi bi-clock-history text-emerald-600 text-sm"></i>
+                </div>
+                <h3 class="font-bold text-slate-800">User Time Report</h3>
             </div>
+            <button onclick="closeModal('open-modal')" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
+                <i class="bi bi-x-lg text-sm"></i>
+            </button>
+        </div>
 
-            <div class="modal-body">
-                            <form action="{{ url('/user_duration') }}" method="POST" >
-                @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Select User</label>
-                        <select name="user" id="user" class="form-select" >
-                            <option disabled selected>Select User</option>
-                            @if(!empty($users))
+        <!-- Form -->
+        <form action="{{ url('/user_duration') }}" method="POST">
+            @csrf
+            <div class="p-6 space-y-4">
+
+                <!-- User Select -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1.5">Select User</label>
+                    <select name="user" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                        <option disabled selected>Select User</option>
+                        @if(!empty($users))
                             @foreach($total_users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
-                            @endif
-                        </select>
-                    </div>
+                        @endif
+                    </select>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                                                <div class="mb-3">
-                        <label class="form-label">From Date</label>
-                        <input type="date" name="from_date"
-                            class="form-control"max="{{ now()->format('Y-m-d') }}">
+                <!-- Date Range -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">From Date</label>
+                        <input type="date" name="from_date" max="{{ now()->format('Y-m-d') }}"
+                            class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">To Date</label>
-                        <input type="date" name="to_date"
-                            class="form-control"max="{{ now()->format('Y-m-d') }}">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">To Date</label>
+                        <input type="date" name="to_date" max="{{ now()->format('Y-m-d') }}"
+                            class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
                     </div>
-                        </div>
-                        <div class="col-md-6">                    <div class="mb-3">
-                        <label class="form-label">From time</label>
+                </div>
+
+                <!-- Time Range -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">From Time</label>
                         <input type="time" name="from_time"
-                            class="form-control"max="{{ now()->format('H:i') }}">
+                            class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">To time</label>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">To Time</label>
                         <input type="time" name="to_time"
-                            class="form-control"max="{{ now()->format('H:i') }}">
-                    </div></div>
+                            class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
                     </div>
-
                 </div>
 
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary">Submit</button>
-                </div>
-                </div>
-                </div>
+            </div>
+
+            <div class="flex gap-3 px-6 py-4 border-t border-slate-100">
+                <button type="button" onclick="closeModal('open-modal')" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50 transition-all">Cancel</button>
+                <button type="submit" class="flex-1 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition-all shadow-sm">Generate Report</button>
+            </div>
+        </form>
+    </div>
+</div>

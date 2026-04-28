@@ -78,7 +78,6 @@ $time_logs=TimeLog::where('user_id', $user_id)->whereBetween('start_time', [$fro
 
 
     public function start(Request $request){
-        dd('$request->ticket');
         $log =TimeLog::create([
             'user_id'=>auth()->id(),
             'ticket_id'=>$request->ticket,
